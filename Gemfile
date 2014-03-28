@@ -34,7 +34,7 @@ end
 
 group :development do
     gem 'capistrano'
-    gem 'rvm1-capistrano3'
+    gem 'capistrano-rvm'
     gem 'capistrano-rails'
     gem 'capistrano-bundler'
 end

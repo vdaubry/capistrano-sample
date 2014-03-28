@@ -14,8 +14,7 @@ require 'capistrano/deploy'
 #   https://github.com/capistrano/bundler
 #   https://github.com/capistrano/rails
 #
-#require 'capistrano/rvm'
-require 'rvm1/capistrano3'
+require 'capistrano/rvm'
 require 'capistrano/rails'
 # require 'capistrano/rbenv'
 # require 'capistrano/chruby'
