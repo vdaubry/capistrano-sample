@@ -8,6 +8,7 @@ set :application, 'capistrano-sample'
 set :repo_url, 'git@github.com:vdaubry/capistrano-sample.git'
 set :branch, "master"
 set :deploy_via, :remote_cache
+set :ssh_options, { :forward_agent => true }
 
 # We are only going to use a single stage: production
 set :stages, ["production"]
@@ -16,7 +17,7 @@ set :stages, ["production"]
 # ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }
 
 # Default deploy_to directory is /var/www/my_app
-set :deploy_to, '/var/www/capistrano-sample'
+set :deploy_to, '/srv/www/capistrano-sample'
 
 # Default value for :scm is :git
 # set :scm, :git
