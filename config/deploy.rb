@@ -43,6 +43,8 @@ set :deploy_to, '/srv/www/capistrano-sample'
 # Default value for keep_releases is 5
 set :keep_releases, 1
 
+set :rvm_ruby_string, :local              # use the same ruby as used locally for deployment
+
 namespace :deploy do
 
   desc "Check that we can access everything"
@@ -60,21 +62,20 @@ namespace :deploy do
   task :copy_production do
     on roles :all do
       execute :mkdir, '-p', "#{shared_path}/config"
-      upload! '#{RAILS_ROOT}/config/initializer/secret_token.rb', "#{current_path}/config/initializer/secret_token.rb"
+      upload! 'config/initializers/secret_token.rb', "#{current_path}/config/initializers/secret_token.rb"
     end
   end
-
-  after :publishing, :copy_production
 
   desc 'Restart application'
   task :restart do
     on roles(:app), in: :sequence, wait: 5 do
       # Your restart mechanism here, for example:
-      # execute :touch, release_path.join('tmp/restart.txt')
-      execute "rails s"
+      execute :touch, release_path.join('tmp/restart.txt')
+      # execute "rails s"
     end
   end
 
+  after :publishing, :copy_production
   after :publishing, :restart
 
   after :restart, :clear_cache do
