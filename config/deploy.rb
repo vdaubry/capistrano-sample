@@ -56,6 +56,16 @@ namespace :deploy do
     end
   end
 
+  desc 'Copy config from local workstation'
+  task :copy_production do
+    on roles :all do
+      execute :mkdir, '-p', "#{shared_path}/config"
+      upload! '#{RAILS_ROOT}/config/initializer/secret_token.rb', "#{current_path}/config/initializer/secret_token.rb"
+    end
+  end
+
+  after :publishing, :copy_production
+
   desc 'Restart application'
   task :restart do
     on roles(:app), in: :sequence, wait: 5 do
